@@ -11,8 +11,11 @@
 #include <cmath>
 #include <fstream>
 
+#include <boost/program_options.hpp>
+
 #include "dla.h"
 #include "output.h"
+#include "input.h"
 
 int main(int argc, char** argv)
 {
@@ -26,6 +29,8 @@ int main(int argc, char** argv)
     int count = 0;
     int sR = 25;
 
+    boost::program_options::variables_map options;
+    
     // Random number generation
     std::default_random_engine engine;
     std::uniform_int_distribution<int> dirdist(0, 3);
@@ -36,7 +41,13 @@ int main(int argc, char** argv)
 
     // Set the central point
     grid[N/2][N/2].particle = true;
+    
 
+    if(!parse_options(argc, argv, options))
+        return EXIT_FAILURE;
+
+    engine.seed(options["seed"].as<int>());
+    
     for(int i = 0; i < P; i++)
     {
         // Generate a new starting position
