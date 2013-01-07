@@ -14,7 +14,10 @@ bool parse_options(int argc, char** argv, po::variables_map &map)
     po::options_description desc("Options");
     desc.add_options()
             ("help", "Prints this help message")
-            ("seed", po::value<int>()->default_value(0), "Sets RNG seed");
+            ("seed", po::value<int>()->default_value(0), "Sets RNG seed")
+            ("size", po::value<int>()->default_value(500), "Sets grid size")
+            ("particles", po::value<int>()->default_value(15000), 
+                          "Sets particle count");
 
     po::store(po::parse_command_line(argc, argv, desc), map);
     po::notify(map);

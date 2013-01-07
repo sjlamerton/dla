@@ -13,7 +13,7 @@ if(Boost_FOUND)
 endif()
 
 # Add our files to some variables
-set(source dla.cpp input.cpp)
+set(source dla.cpp input.cpp output.cpp)
 set(headers dla.h input.h output.h)
 
 # Create our executable

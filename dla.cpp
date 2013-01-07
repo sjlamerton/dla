@@ -19,34 +19,34 @@
 
 int main(int argc, char** argv)
 {
-    // Various constants
-    const int N = 500;
-    const int P = 15000;
-    const int kR = N / 2 - 1;
-
-    // Other useful attributes
-    int maxradius = 1;
-    int count = 0;
-    int sR = 25;
-
+    // Parse the commad line arguments
     boost::program_options::variables_map options;
     
+    if(!parse_options(argc, argv, options))
+        return EXIT_FAILURE;
+    
+    // Various constants
+    int N = options["size"].as<int>();
+    int P = options["particles"].as<int>();
+    int kR = N / 2 - 1;
+    int sR = 25;
+    int maxradius = 1;
+    int count = 0;
+
+
     // Random number generation
     std::default_random_engine engine;
     std::uniform_int_distribution<int> dirdist(0, 3);
     std::uniform_real_distribution<double> angledist(0, 2 * pi());
 
+    engine.seed(options["seed"].as<int>());
+    
     // Set up and default initialise our grid
-    std::array<std::array<cell, N>, N> grid = {};
+    std::vector<std::vector<cell>> grid (N, std::vector<cell>(N));
 
     // Set the central point
     grid[N/2][N/2].particle = true;
     
-
-    if(!parse_options(argc, argv, options))
-        return EXIT_FAILURE;
-
-    engine.seed(options["seed"].as<int>());
     
     for(int i = 0; i < P; i++)
     {
@@ -98,9 +98,9 @@ int main(int argc, char** argv)
 
     // Print the grid to screen if it is small enough
     if(N <= 100)
-        toscreen(grid);
+        to_screen(grid);
 
-    topbm(grid);
+    to_pbm(grid);
 
     std::cout << std::endl;
     std::cout << "Particle count: " << count << std::endl;
