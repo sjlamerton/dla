@@ -100,7 +100,7 @@ int main(int argc, char** argv)
     if(N <= 100)
         to_screen(grid);
 
-    to_pbm(grid);
+    to_pbm(grid, options["name"].as<std::string>());
 
     std::cout << std::endl;
     std::cout << "Particle count: " << count << std::endl;

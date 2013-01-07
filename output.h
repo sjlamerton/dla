@@ -9,7 +9,7 @@
 
 #include "dla.h"
 
-void to_pbm(std::vector<std::vector<cell>> grid);
+void to_pbm(std::vector<std::vector<cell>> grid, std::string name);
 void to_screen(std::vector<std::vector<cell>> grid);
 
 #endif

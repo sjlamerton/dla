@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
+#include <string>
 #include <boost/program_options.hpp>
 
 namespace po = boost::program_options;
@@ -17,7 +18,9 @@ bool parse_options(int argc, char** argv, po::variables_map &map)
             ("seed", po::value<int>()->default_value(0), "Sets RNG seed")
             ("size", po::value<int>()->default_value(500), "Sets grid size")
             ("particles", po::value<int>()->default_value(15000), 
-                          "Sets particle count");
+                          "Sets particle count")
+            ("name", po::value<std::string>()->default_value("output"),
+                     "Output name");
 
     po::store(po::parse_command_line(argc, argv, desc), map);
     po::notify(map);

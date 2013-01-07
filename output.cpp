@@ -10,10 +10,10 @@
 
 #include "dla.h"
 
-void to_pbm(std::vector<std::vector<cell>> grid)
+void to_pbm(std::vector<std::vector<cell>> grid, std::string name)
 {
     std::ofstream out;
-    out.open("out.pbm");
+    out.open(name + ".pbm");
     
     out << "P1\n";
     out << grid.size() << " " << grid.size() << "\n";
