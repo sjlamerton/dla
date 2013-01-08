@@ -19,7 +19,9 @@ constexpr double pi()
     return 4 * std::atan(1);
 }
 
-void updateposition(std::pair<int, int> &pos, int direction);
+typedef std::pair<int, int> position;
+
+void updateposition(position &pos, int direction);
 
 #endif
 

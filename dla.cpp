@@ -53,15 +53,15 @@ int main(int argc, char** argv)
         // Generate a new starting position
         double angle = angledist(engine);
 
-        std::pair<int, int> pos = std::make_pair(sR * std::cos(angle) + N/2, 
-                                                 sR * std::sin(angle) + N/2);
+        position pos = std::make_pair(sR * std::cos(angle) + N/2,
+                                      sR * std::sin(angle) + N/2);
 
         // Move until we hit the solid mass or are too far away
         while(true)
         {
             updateposition(pos, dirdist(engine));
 
-            int radius = (int) std::sqrt(std::pow(N/2 - pos.second, 2) + 
+            int radius = (int) std::sqrt(std::pow(N/2 - pos.second, 2) +
                                          std::pow(N/2 - pos.first, 2));
 
             // Kill the particle if it stays too near the edge
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
     std::cout << "Maximum radius: " << maxradius << std::endl;
 }
 
-void updateposition(std::pair<int, int> &pos, int direction)
+void updateposition(position &pos, int direction)
 {
     switch(direction)
     {
