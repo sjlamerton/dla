@@ -12,6 +12,7 @@
 struct cell
 {
     bool particle;
+    int age;
 };
 
 constexpr double pi()

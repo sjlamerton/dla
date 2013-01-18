@@ -74,9 +74,10 @@ int main(int argc, char** argv)
                     || grid[pos.second][pos.first - 1].particle == true
                     || grid[pos.second][pos.first + 1].particle == true)
             {
-                grid[pos.second][pos.first].particle = true;
-                maxradius = std::max(maxradius, radius);
                 count++;
+                grid[pos.second][pos.first].particle = true;
+                grid[pos.second][pos.first].age = count;
+                maxradius = std::max(maxradius, radius);
                 break;
             }
         }
@@ -100,7 +101,7 @@ int main(int argc, char** argv)
     if(N <= 100)
         to_screen(grid);
 
-    to_pbm(grid, options["output"].as<std::string>());
+    to_ppm(grid, options["output"].as<std::string>());
 
     std::cout << std::endl;
     std::cout << "Particle count: " << count << std::endl;
