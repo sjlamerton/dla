@@ -11,7 +11,8 @@
 #include "output.h"
 #include "dla.h"
 
-void to_pbm(std::vector<std::vector<cell>> grid, std::string name)
+void to_pbm(const std::vector<std::vector<cell>> &grid,
+            const std::string &name)
 {
     std::ofstream out;
     out.open(name + ".pbm");
@@ -53,7 +54,7 @@ void to_ppm(const std::vector<std::vector<cell>> &grid,
     out.close();
 }
 
-void to_screen(std::vector<std::vector<cell>> grid)
+void to_screen(const std::vector<std::vector<cell>> &grid)
 {
     for(auto i : grid)
     {
