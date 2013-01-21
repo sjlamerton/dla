@@ -48,8 +48,10 @@ int main(int argc, char** argv)
     grid[N/2][N/2].particle = true;
     
     
-    for(int i = 0; i < P; i++)
+    for(int i = 1; i <= P; i++)
     {
+        if(i % 10000 == 0)
+            std::cout << "Particle count: " << i << std::endl;
         // Generate a new starting position
         double angle = angledist(engine);
 
@@ -99,7 +101,7 @@ int main(int argc, char** argv)
             }
 
             sR = std::min(kR, sR + 20);
-            std::cout << "Expanding the starting radius: " << sR << std::endl;
+            std::cout << "Expanding sR: " << sR << std::endl;
         }
 
     }
@@ -111,7 +113,7 @@ int main(int argc, char** argv)
     to_ppm(grid, options["output"].as<std::string>());
 
     std::cout << std::endl;
-    std::cout << "Particle count: " << count << std::endl;
+    std::cout << "Fixed particle count: " << count << std::endl;
     std::cout << "Maximum radius: " << maxradius << std::endl;
 }
 
