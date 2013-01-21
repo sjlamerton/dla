@@ -86,13 +86,13 @@ int main(int argc, char** argv)
 
         if(kR <= sR + 100)
         {
-            kR = std::min(N/2 - 1, kR * 2);
+            kR = std::min(N/2 - 1, static_cast<int>(kR * 1.2));
             if(kR != N/2 -1)
             std::cout << "Expanding kR: " << kR << std::endl;
         }
 
         // Extend the starting radius if needed
-        if(maxradius >= sR - 20)
+        if(maxradius >= sR - 50)
         {
             if(sR == kR)
             {
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
                 break;
             }
 
-            sR = std::min(kR, sR + 20);
+            sR = std::min(kR, static_cast<int>(sR * 1.1));
             std::cout << "Expanding sR: " << sR << std::endl;
         }
 
