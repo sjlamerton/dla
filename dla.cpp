@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     // Various constants
     int N = options["size"].as<int>();
     int P = options["particles"].as<int>();
-    int kR = N / 2 - 1;
+    int kR = 100;
     int sR = 25;
     int maxradius = 1;
     int count = 0;
@@ -80,6 +80,13 @@ int main(int argc, char** argv)
                 maxradius = std::max(maxradius, radius);
                 break;
             }
+        }
+
+        if(kR <= sR + 100)
+        {
+            kR = std::min(N/2 - 1, kR * 2);
+            if(kR != N/2 -1)
+            std::cout << "Expanding kR: " << kR << std::endl;
         }
 
         // Extend the starting radius if needed
