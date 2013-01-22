@@ -10,6 +10,7 @@
 #include <functional>
 #include <cmath>
 #include <fstream>
+#include <chrono>
 
 #include <boost/program_options.hpp>
 
@@ -40,7 +41,10 @@ int main(int argc, char** argv)
     std::uniform_real_distribution<double> angledist(0, 2 * pi());
 
     engine.seed(options["seed"].as<int>());
-    
+   
+    // Start our timing
+    hr_clock::time_point start = hr_clock::now(); 
+
     // Set up and default initialise our grid
     std::vector<std::vector<cell>> grid (N, std::vector<cell>(N));
 
@@ -106,15 +110,28 @@ int main(int argc, char** argv)
 
     }
 
+    hr_clock::time_point calc = hr_clock::now();
+
     // Print the grid to screen if it is small enough
     if(N <= 100)
         to_screen(grid);
 
     to_ppm(grid, options["output"].as<std::string>());
 
+    hr_clock::time_point io = hr_clock::now();
+
     std::cout << std::endl;
     std::cout << "Fixed particle count: " << count << std::endl;
     std::cout << "Maximum radius: " << maxradius << std::endl;
+    std::cout << "Calculation time: " 
+              << std::chrono::duration_cast<milliseconds>(calc - start).count()
+              << "ms\n";
+    std::cout << "IO time: " 
+              << std::chrono::duration_cast<milliseconds>(io - calc).count()
+              << "ms\n";
+    std::cout << "Total time: " 
+              << std::chrono::duration_cast<milliseconds>(io - start).count()
+              << "ms\n";
 }
 
 void updateposition(position &pos, int direction)

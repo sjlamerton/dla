@@ -8,6 +8,7 @@
 #define _DNL_H_
 
 #include <cmath>
+#include <chrono>
 
 struct cell
 {
@@ -21,6 +22,8 @@ constexpr double pi()
 }
 
 typedef std::pair<int, int> position;
+typedef std::chrono::high_resolution_clock hr_clock;
+typedef std::chrono::milliseconds milliseconds;
 
 void updateposition(position &pos, int direction);
 
