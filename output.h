@@ -13,6 +13,8 @@ void to_pbm(const std::vector<std::vector<cell>> &grid,
             const std::string &name);
 void to_ppm(const std::vector<std::vector<cell>> &grid,
             const std::string &name);
+void to_png(const std::vector<std::vector<cell>> &grid,
+            const std::string &name);
 void to_screen(const std::vector<std::vector<cell>> &grid);
 
 #endif

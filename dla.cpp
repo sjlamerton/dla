@@ -116,7 +116,7 @@ int main(int argc, char** argv)
     if(N <= 100)
         to_screen(grid);
 
-    to_ppm(grid, options["output"].as<std::string>());
+    to_png(grid, options["output"].as<std::string>());
 
     hr_clock::time_point io = hr_clock::now();
 

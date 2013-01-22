@@ -7,10 +7,11 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 find_package(Boost REQUIRED COMPONENTS program_options)
+include_directories(${Boost_INCLUDE_DIRS})
 
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-endif()
+find_package(PNG REQUIRED)
+include_directories(${PNG_INCLUDE_DIRS})
+add_definitions(${PNG_DEFINITIONS})
 
 # Add our files to some variables
 set(source dla.cpp input.cpp output.cpp)
@@ -18,4 +19,4 @@ set(headers dla.h input.h output.h)
 
 # Create our executable
 add_executable(dla ${source} ${headers})
-target_link_libraries(dla ${Boost_LIBRARIES})
+target_link_libraries(dla ${Boost_LIBRARIES} ${PNG_LIBRARIES})
