@@ -13,6 +13,37 @@
 #include "output.h"
 #include "dla.h"
 
+struct rgb
+{
+    int r, g, b;
+};
+
+rgb get_colour(int age)
+{
+    rgb ret;
+    double h = (age % 36000) / 6000.0, i, f, r, g, b;
+
+    f = std::modf(h, &i);
+
+    if(age == 0)
+    {
+        ret.r = 0; ret.g = 0; ret.b = 0;
+        return ret;
+    }
+    
+    if(i == 0) { r = 1; g = f; b = 0; }
+    if(i == 1) { r = 1 - f; g = 1; b = 0; }
+    if(i == 2) { r = 0; g = 1; b = f; }
+    if(i == 3) { r = 0; g = 1 - f; b = 1; }
+    if(i == 4) { r = f; g = 0; b = 1; }
+    if(i == 5) { r = 1; g = 0; b = 1 - f; }
+
+    ret.r = r * 255; ret.g = g * 255;
+    ret.b = b * 255;
+
+    return ret;
+}
+
 void to_pbm(const std::vector<std::vector<cell>> &grid,
             const std::string &name)
 {
@@ -96,9 +127,10 @@ void to_png(const std::vector<std::vector<cell>> &grid,
         data.clear();
         for(auto j : i)
         {
-            data.push_back(static_cast<unsigned char>(j.age % 256));
-            data.push_back(static_cast<unsigned char>((j.age / 256) % 256));
-            data.push_back(static_cast<unsigned char>((j.age / 65536) % 256));
+            rgb val = get_colour(j.age);
+            data.push_back(val.r);
+            data.push_back(val.g);
+            data.push_back(val.b);
         }
         png_write_row(write_struct, data.data());
     }
