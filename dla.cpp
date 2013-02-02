@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 
     // Random number generation
-    std::default_random_engine engine;
+    std::ranlux24_base engine;
     std::uniform_int_distribution<int> dirdist(0, 3);
     std::uniform_real_distribution<double> angledist(0, 2 * pi());
 
@@ -73,6 +73,10 @@ int main(int argc, char** argv)
             // Kill the particle if it stays too near the edge
             if(radius >= kR)
                 break;
+
+            // Only check if we are near the fractal
+            if(radius >= maxradius + 5)
+                continue;
 
             // Fix particle if needed
             if(grid[pos.second - 1][pos.first].particle == true
