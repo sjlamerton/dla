@@ -13,6 +13,8 @@
 #include <chrono>
 
 #include <boost/program_options.hpp>
+#include <boost/random/taus88.hpp>
+#include <boost/random/uniform_smallint.hpp>
 
 #include "dla.h"
 #include "output.h"
@@ -36,8 +38,8 @@ int main(int argc, char** argv)
 
 
     // Random number generation
-    std::ranlux24_base engine;
-    std::uniform_int_distribution<int> dirdist(0, 3);
+    boost::taus88 engine;
+    boost::uniform_smallint<int> dirdist(0, 3);
     std::uniform_real_distribution<double> angledist(0, 2 * pi());
 
     engine.seed(options["seed"].as<int>());
@@ -67,8 +69,9 @@ int main(int argc, char** argv)
         {
             updateposition(pos, dirdist(engine));
 
-            int radius = (int) std::sqrt(std::pow(N/2 - pos.second, 2) +
-                                         std::pow(N/2 - pos.first, 2));
+            int x = N/2 - pos.first;
+            int y = N/2 - pos.second;
+            int radius = (int) std::sqrt(x * x + y * y);
 
             // Kill the particle if it stays too near the edge
             if(radius >= kR)
