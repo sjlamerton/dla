@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 
     // Random number generation
     boost::taus88 engine;
-    boost::uniform_smallint<int> dirdist(0, 3);
+    boost::uniform_smallint<int> dirdist(0, 7);
     std::uniform_real_distribution<double> angledist(0, 2 * pi());
 
     engine.seed(options["seed"].as<int>());
@@ -82,10 +82,14 @@ int main(int argc, char** argv)
                 continue;
 
             // Fix particle if needed
-            if(grid[pos.second - 1][pos.first].particle == true
-                    || grid[pos.second + 1][pos.first].particle == true
-                    || grid[pos.second][pos.first - 1].particle == true
-                    || grid[pos.second][pos.first + 1].particle == true)
+            if(grid[pos.second - 1][pos.first].particle
+                    || grid[pos.second + 1][pos.first].particle
+                    || grid[pos.second][pos.first - 1].particle
+                    || grid[pos.second][pos.first + 1].particle
+                    || grid[pos.second - 1][pos.first - 1].particle
+                    || grid[pos.second + 1][pos.first + 1].particle
+                    || grid[pos.second + 1][pos.first - 1].particle
+                    || grid[pos.second - 1][pos.first + 1].particle)
             {
                 count++;
                 grid[pos.second][pos.first].particle = true;
@@ -156,6 +160,22 @@ void updateposition(position &pos, int direction)
             break;
         case 3:
             pos.first--;
+            break;
+        case 4:
+            pos.first++;
+            pos.second--;
+            break;
+        case 5:
+            pos.first++;
+            pos.second++;
+            break;
+        case 6:
+            pos.first--;
+            pos.second++;
+            break;
+        case 7:
+            pos.first--;
+            pos.second--;
             break;
     }
 }
