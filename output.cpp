@@ -44,49 +44,6 @@ rgb get_colour(int age)
     return ret;
 }
 
-void to_pbm(const std::vector<std::vector<cell>> &grid,
-            const std::string &name)
-{
-    std::ofstream out;
-    out.open(name + ".pbm");
-
-    out << "P1\n";
-    out << grid.size() << " " << grid.size() << "\n";
-
-    for(auto i : grid)
-    {
-        for(auto j : i)
-        {
-            out << j.particle;
-        }
-        out << "\n";
-    }
-
-    out.close();
-}
-
-void to_ppm(const std::vector<std::vector<cell>> &grid,
-            const std::string &name)
-{
-    std::ofstream out;
-    out.open(name + ".ppm");
-
-    out << "P3\n";
-    out << grid.size() << " " << grid.size() << "\n";
-    out << "255\n";
-
-    for(auto i : grid)
-    {
-        for(auto j : i)
-        {
-            out << j.age % 256 << " "
-                << (j.age / 256) % 256 << " "
-                << (j.age / 65536) % 256 << "\n";
-        }
-    }
-    out.close();
-}
-
 void to_png(const std::vector<std::vector<cell>> &grid,
             const std::string &name)
 {
