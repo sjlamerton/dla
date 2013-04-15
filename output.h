@@ -10,7 +10,7 @@
 #include "dla.h"
 
 void to_png(const std::vector<std::vector<cell>> &grid,
-            const std::string &name);
+            const std::string &name, int radius);
 void to_screen(const std::vector<std::vector<cell>> &grid);
 
 #endif

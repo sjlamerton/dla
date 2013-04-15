@@ -127,7 +127,7 @@ int main(int argc, char** argv)
     if(N <= 100)
         to_screen(grid);
 
-    to_png(grid, options["output"].as<std::string>());
+    to_png(grid, options["output"].as<std::string>(), maxradius);
 
     hr_clock::time_point io = hr_clock::now();
 

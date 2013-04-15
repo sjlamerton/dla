@@ -48,13 +48,14 @@ rgb get_colour(int age)
 }
 
 void to_png(const std::vector<std::vector<cell>> &grid,
-            const std::string &name)
+            const std::string &name, int radius)
 {
     FILE* file;
     png_structp write_struct;
     png_infop info_struct;
     std::vector<unsigned char> data;
     std::string fullname = name + ".png";
+    const int N = grid.size();
 
     file = fopen(fullname.c_str(), "wb");
     if(!file)
@@ -76,18 +77,18 @@ void to_png(const std::vector<std::vector<cell>> &grid,
     png_init_io(write_struct, file);
 
     // We write in  8 byte RGB format
-    png_set_IHDR(write_struct, info_struct, grid.size(), grid.size(), 8,
+    png_set_IHDR(write_struct, info_struct, 2 * radius, 2 * radius, 8,
                  PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
     png_write_info(write_struct, info_struct);
-    
-    for(auto i : grid)
+   
+    for(int i = N/2 - radius; i < N/2 + radius; i++)
     {
         data.clear();
-        for(auto j : i)
+        for(int j = N/2 - radius; j < N/2 + radius; j++)
         {
-            rgb val = get_colour(j.age);
+            rgb val = get_colour(grid[i][j].age);
             data.push_back(val.r);
             data.push_back(val.g);
             data.push_back(val.b);
