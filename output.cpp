@@ -13,11 +13,6 @@
 #include "output.h"
 #include "dla.h"
 
-struct rgb
-{
-    int r, g, b;
-};
-
 rgb get_colour(int age)
 {
     rgb ret;
@@ -54,7 +49,8 @@ void to_png(const std::vector<std::vector<cell>> &grid,
     png_structp write_struct;
     png_infop info_struct;
     std::vector<unsigned char> data;
-    std::string fullname = name + ".png";
+    std::string fullname = name;
+    fullname += ".png";
     const int N = grid.size();
 
     file = fopen(fullname.c_str(), "wb");

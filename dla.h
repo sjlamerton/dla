@@ -10,6 +10,10 @@
 #include <cmath>
 #include <chrono>
 
+#ifdef _MSC_FULL_VER
+#define constexpr static
+#endif
+
 struct cell
 {
     bool particle;
