@@ -12,7 +12,7 @@
 #include <random>
 #include <boost/random/taus88.hpp>
 
-class grid
+class grid_base
 {
 public:
     virtual std::pair<int, int> get_start() = 0;
@@ -22,7 +22,7 @@ public:
     virtual void to_png(const std::string &filename) = 0;
 };
 
-class point_grid
+class point_grid : public grid_base
 {
 public:
     point_grid(int size);

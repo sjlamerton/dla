@@ -20,6 +20,7 @@
 #include "output.h"
 #include "input.h"
 #include "grid.h"
+#include "particle_inserter.h"
 
 int main(int argc, char** argv)
 {
@@ -43,29 +44,9 @@ int main(int argc, char** argv)
     hr_clock::time_point start = hr_clock::now(); 
 
     point_grid grid(N);
-    std::pair<int, int> p;
-    
-    for(int i = 1; i <= P; i++)
-    {
-        if(i % 10000 == 0)
-            std::cout << "Particle count: " << i << std::endl;
+    particle_inserter ins(P, &grid);
 
-        // Generate a new starting position
-        p = grid.get_start();
-
-        // Move until we hit the solid mass or are too far away
-        while(true)
-        {
-            updateposition(p, dirdist(engine));
-
-            if(grid.should_kill(p))
-                break;
-
-            if(grid.should_stick(p))
-                break;
-        }
-        // Maybe have grid.update_radius here
-    }
+    ins();
 
     hr_clock::time_point calc = hr_clock::now();
 
@@ -86,39 +67,3 @@ int main(int argc, char** argv)
               << std::chrono::duration_cast<milliseconds>(io - start).count()
               << "ms\n";
 }
-
-void updateposition(position &pos, int direction)
-{
-    switch(direction)
-    {
-        case 0:
-            pos.second--;
-            break;
-        case 1:
-            pos.first++;
-            break;
-        case 2:
-            pos.second++;
-            break;
-        case 3:
-            pos.first--;
-            break;
-        case 4:
-            pos.first++;
-            pos.second--;
-            break;
-        case 5:
-            pos.first++;
-            pos.second++;
-            break;
-        case 6:
-            pos.first--;
-            pos.second++;
-            break;
-        case 7:
-            pos.first--;
-            pos.second--;
-            break;
-    }
-}
-
