@@ -19,6 +19,8 @@ bool parse_options(int argc, char** argv, po::variables_map &map)
             ("size,n", po::value<int>()->default_value(1000), "Sets grid size")
             ("particles,p", po::value<int>()->default_value(50000),
                           "Sets particle count")
+            ("threads,t", po::value<int>()->default_value(4),
+                          "Sets thread count")
             ("output,o", po::value<std::string>()->default_value("output"),
                      "Output name");
 

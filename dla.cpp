@@ -11,6 +11,7 @@
 #include <cmath>
 #include <fstream>
 #include <chrono>
+#include <thread>
 
 #include <boost/program_options.hpp>
 #include <boost/random/taus88.hpp>
@@ -26,6 +27,7 @@ int main(int argc, char** argv)
 {
     // Parse the commad line arguments
     boost::program_options::variables_map options;
+    std::vector<std::thread> threads;
     
     if(!parse_options(argc, argv, options))
         return EXIT_FAILURE;
@@ -33,6 +35,7 @@ int main(int argc, char** argv)
     // Various constants
     int N = options["size"].as<int>();
     int P = options["particles"].as<int>();
+    int t = options["threads"].as<int>();
 
     // Random number generation
     boost::taus88 engine;
@@ -44,9 +47,12 @@ int main(int argc, char** argv)
     hr_clock::time_point start = hr_clock::now(); 
 
     point_grid grid(N);
-    particle_inserter ins(P, &grid);
 
-    ins();
+    for(int i = 0; i < t; i++)
+        threads.push_back(std::thread(particle_inserter(P/t, &grid)));
+
+    for(int i = 0; i < t; i++)
+        threads[i].join();
 
     hr_clock::time_point calc = hr_clock::now();
 
