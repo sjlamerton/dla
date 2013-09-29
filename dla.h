@@ -7,18 +7,11 @@
 #ifndef _DNL_H_
 #define _DNL_H_
 
-#include <cmath>
 #include <chrono>
 
 #ifdef _MSC_FULL_VER
 #define constexpr static
 #endif
-
-struct cell
-{
-    bool particle;
-    int age;
-};
 
 constexpr double pi()
 {
@@ -29,7 +22,4 @@ typedef std::pair<int, int> position;
 typedef std::chrono::high_resolution_clock hr_clock;
 typedef std::chrono::milliseconds milliseconds;
 
-void updateposition(position &pos, int direction);
-
 #endif
-

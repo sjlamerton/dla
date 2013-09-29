@@ -7,6 +7,9 @@
 #ifndef _PARTICLE_INSERTER_H_
 #define _PARTICLE_INSERTER_H_
 
+#include <boost/random/taus88.hpp>
+#include <boost/random/uniform_int.hpp>
+
 #include "grid.h"
 
 class particle_inserter
@@ -22,7 +25,7 @@ private:
     grid_base *grid;
     // Random number generation
     boost::taus88 engine;
-    boost::uniform_smallint<int> dirdist;
+    boost::uniform_int<int> dirdist;
 };
 
 #endif

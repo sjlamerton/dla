@@ -5,20 +5,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
-#include <array>
-#include <random>
-#include <functional>
-#include <cmath>
-#include <fstream>
 #include <chrono>
 #include <thread>
-
 #include <boost/program_options.hpp>
-#include <boost/random/taus88.hpp>
-#include <boost/random/uniform_smallint.hpp>
 
 #include "dla.h"
-#include "output.h"
 #include "input.h"
 #include "grid.h"
 #include "particle_inserter.h"
@@ -37,12 +28,6 @@ int main(int argc, char** argv)
     int P = options["particles"].as<int>();
     int t = options["threads"].as<int>();
 
-    // Random number generation
-    boost::taus88 engine;
-    boost::uniform_smallint<int> dirdist(0, 7);
-
-    engine.seed(options["seed"].as<int>());
-   
     // Start our timing
     hr_clock::time_point start = hr_clock::now(); 
 

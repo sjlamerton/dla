@@ -16,9 +16,5 @@ struct rgb
 
 rgb get_colour(int age);
 
-void to_png(const std::vector<std::vector<cell>> &grid,
-            const std::string &name, int radius);
-void to_screen(const std::vector<std::vector<cell>> &grid);
-
 #endif
 
