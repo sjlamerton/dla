@@ -9,15 +9,6 @@
 
 #include <chrono>
 
-#ifdef _MSC_FULL_VER
-#define constexpr static
-#endif
-
-constexpr double pi()
-{
-    return 4 * std::atan(1);
-}
-
 typedef std::pair<int, int> position;
 typedef std::chrono::high_resolution_clock hr_clock;
 typedef std::chrono::milliseconds milliseconds;
