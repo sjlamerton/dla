@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     // Start our timing
     hr_clock::time_point start = hr_clock::now(); 
 
-    point_grid grid(N);
+    line_vector_grid grid(N);
 
     for(int i = 0; i < t; i++)
         threads.push_back(std::thread(particle_inserter(P/t, &grid)));

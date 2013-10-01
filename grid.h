@@ -22,25 +22,51 @@ public:
     virtual void to_png(const std::string &filename) = 0;
 };
 
-class point_grid : public grid_base
+class vector_grid : public grid_base
 {
 public:
-    point_grid(int size);
+    vector_grid(int size);
+    virtual std::pair<int, int> get_start() = 0;
+    virtual bool should_kill(std::pair<int, int> p) = 0;
+    virtual bool should_stick(std::pair<int, int> p);
+    virtual void to_png(const std::string &filename);
+    virtual int get_count() { return count; }
+
+protected:
+    std::vector<std::vector<int>> grid;
+    int N, count;
+};
+
+class point_vector_grid : public vector_grid
+{
+public:
+    point_vector_grid(int size);
     virtual std::pair<int, int> get_start();
     virtual bool should_kill(std::pair<int, int> p);
     virtual bool should_stick(std::pair<int, int> p);
-    virtual void to_png(const std::string &filename);
-
-    virtual int get_count() { return count; }
     virtual int get_radius() {return maxR; }
 
-
 private:
-    std::vector<std::vector<int>> grid;
-    int N, sR, kR, maxR, count;
+    int sR, kR, maxR;
     // Random number generation
     boost::taus88 engine;
     std::uniform_real_distribution<double> angleDist;
+};
+
+class line_vector_grid : public vector_grid
+{
+public:
+    line_vector_grid(int size);
+    virtual std::pair<int, int> get_start();
+    virtual bool should_kill(std::pair<int, int> p);
+    virtual bool should_stick(std::pair<int, int> p);
+    virtual int get_radius() {return maxR; }
+
+private:
+    int sR, kR, maxR;
+    // Random number generation
+    boost::taus88 engine;
+    std::uniform_int_distribution<int> dist;
 };
 
 #endif
