@@ -18,10 +18,12 @@ find_package(PNG REQUIRED)
 include_directories(${PNG_INCLUDE_DIRS})
 add_definitions(${PNG_DEFINITIONS})
 
+find_package (Threads)
+
 # Add our files to some variables
 set(source dla.cpp grid.cpp input.cpp output.cpp particle_inserter.cpp)
 set(headers dla.h grid.h input.h output.h particle_inserter.h)
 
 # Create our executable
 add_executable(dla ${source} ${headers})
-target_link_libraries(dla ${Boost_LIBRARIES} ${PNG_LIBRARIES})
+target_link_libraries(dla ${Boost_LIBRARIES} ${PNG_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
